@@ -13,7 +13,6 @@ def parse_args():
     parser.add_argument("--type", choices=['one-time', 'repetitive'],
                         help="Task type either one-time or repetitive")
     parser.add_argument("--description", help="Task description")
-    parser.add_argument("--task_id", help="Task unique id")
     parser.add_argument("--terminate", action='store_true', dest='terminate', 
                         help="Terminate a repetitive task")
     args = parser.parse_args()
@@ -23,8 +22,6 @@ def parse_args():
         parser.error("--type is required when the action is 'add_task'")
     if args.action == 'add_task' and not args.description:
         parser.error("--description is required when the action is 'add_task'")
-    if args.action == 'complete_task' and not args.task_id:
-        parser.error("--task_id is required when the action is 'complete_task'")
     if args.action == 'complete_task' and not args.description:
         parser.error("--description is required when the action is 'complete_task'")
     return args
@@ -49,7 +46,7 @@ def main():
             print(task)
 
     elif action == 'complete_task':
-        is_success, error = finishitup.complete_task(args.task_id, args.description, args.terminate)
+        is_success, error = finishitup.complete_task(args.description, args.terminate)
         if  not is_success:
             print(f"Failed to complete task, reason: {error}")
 

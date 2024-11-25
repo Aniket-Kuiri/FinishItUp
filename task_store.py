@@ -22,35 +22,38 @@ class TaskStore():
         full_path = os.path.join(self.dir_name, name)
         if not os.path.exists(full_path):
             Path(full_path).touch()
-            with open(full_path, 'w') as file:
-                json.dump([], file)
 
     def _delete_file(self, name):
         full_path = os.path.join(self.dir_name, name)
         if os.path.exists(full_path):
             os.remove(full_path)
 
-    def _write_file(self, name, content):
+    def _write_file(self, name, content_list):
+        # print(content_list)
         try:
             full_path = os.path.join(self.dir_name, name)
             if os.path.exists(full_path):
                 with open(full_path, 'w') as file:
-                    json.dump(content, file)
-                    return True
+                    for content in content_list:
+                        file.write(json.dumps(content) + '\n')
+                return True
         except Exception as e:
             return False
         return False
 
     def _read_file(self, name):
         full_path = os.path.join(self.dir_name, name)
+        content_list = []
         if os.path.exists(full_path):
             with open(full_path, 'r') as file:
-                data = json.load(file)
-                return data
-        return None
+                for line in file:
+                    content = json.loads(line.strip())
+                    content_list.append(content)
+        return content_list
 
     def get_all_tasks(self):
         task_list = self._read_file(self.task_file)
+        # print(type(task_list))
         return task_list
 
     def get_completed_tasks(self):
@@ -70,6 +73,7 @@ class TaskStore():
         return status       
 
     def persist_completed_tasks(self, tasks):
+        # add timestamp to the task
         status = self._write_file(self.completed_task_file, tasks)
         return status
     
