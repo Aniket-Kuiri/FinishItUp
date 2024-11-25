@@ -1,0 +1,103 @@
+---------------------------------------------------------------------------------------------------------------
+
+Problem:
+Human beings often encounter a common problem where if there are multiples tasks
+in their plate, they fail to choose which task needs to be done first. In most scenarios 
+all the tasks seem to be of equal priority causing a selection problem further causing
+more delay in getting any work done. Lets understand this with an example. 
+
+Suppose there is a mid-senior level software engineer with around 6+ years of experience. 
+He is looking for career growth by learning new technologies and preparing for interviews.
+As a mid-senior level engineer he needs to do a lot of things, such as 
+a) regularly practicing competitive coding 
+b) regularly practicing low-level design or machine coding.
+c) regularly reading system design blogs and papers. 
+d) preparing for behavioral round interviews. 
+
+Apart from that he loves to spend time in doing personal projects and add them 
+to his resume so that it stands out from the crowd. He has a few projects in mind 
+that he plans to do. 
+
+As we can see the engineer as lot of things to do, and it becomes overwhelming at times. 
+This causes indecision on which one to start first. Note that there are some tasks that he needs
+to do on a repetitive basis like practicing competitive coding and some tasks that he needs to 
+do once like completing a small project. The indecision is also caused as all of the tasks
+are almost of equal importance. It would be easier if he could commit to a task, complete it 
+and then move to a different task. There is one more problem, most repetitive tasks, like machine coding, 
+needs to be done on a very frequent basis to be at the edge. Sometimes if all the one time tasks are 
+being done one after another, repetitive tasks are forgotten and we loose track of them. So it should 
+be better to enforce the repetitive tasks from time to time to avoid out of practice scenarios. 
+
+
+So based on above we can highlight 2 major problems: 
+1. Indecision of starting a task when there are multiple equal priority tasks
+2. Enforcing repetitive tasks to be done on a time to time without starvation. 
+
+
+We can solve both these issues through the FinishItUp App. 
+
+---------------------------------------------------------------------------------------------------------------
+
+What it is? 
+
+A interface that does the following things:
+    1. Stores task
+    2. Get only one task as current task at one point of time
+    3. Complete the task to get the next task
+    4. archive all the old completed tasks
+
+
+Internals:
+    1. Each task is assigned weight and is updated with each task completion. Selection of task 
+       is based on weight assigned.
+    2. Supports 2 types of tasks: a) one-time task (e.g. a small project), b) repetitive task
+       (solving leetcode problems)
+    3. On every task completion the weights of the pending tasks are updated. One-time tasks 
+       are incremented by 1 while repetitive tasks are incremented by 2. The repetitive tasks 
+       are given more weights to avoid starvation. 
+    4. When a repetitive task is a current task and is completed, the task weight is updated 
+       to initial value and added back to the list of tasks. There is also a provision 
+       to terminate the repetitive task completely. 
+
+
+
+---------------------------------------------------------------------------------------------------------------
+Task Structure:
+1. Task-ID 
+2. Name
+3. Type
+4. Weightage
+5. Description
+
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Task Manager APP CLI: 
+
+1. Add a one-time task
+task_manager.py add_task --name <task1> --type <one-time> --description <task1 description>
+
+
+2. Add a repetitive task
+task_manager.py add_task --name <task2> --type <repetitive> --description <task2 description>
+
+3. Get task to do
+task_manager.py get_task 
+( this returns the task details)
+
+4. Finish a one-time task 
+task_manager.py complete_task <task_id>
+
+5. Finish a repetitive task
+task_manager.py complete_task <task_id> --description <task new description>
+
+(repetitive task may have its description changed time to time, example: 
+for competitive coding task at first we can mention 2 leetcode problems 
+to solved in description, on completion we can update the description with 2 more new
+leetcode problems)
+
+6. Get list of completed tasks:
+task_manager.py get_completed_tasks
+
+---------------------------------------------------------------------------------------------------------------
