@@ -68,7 +68,7 @@ Task Structure:
 3. Type
 4. Weightage
 5. Description
-
+6. Timestamp
 
 
 ---------------------------------------------------------------------------------------------------------------
@@ -76,21 +76,21 @@ Task Structure:
 Task Manager APP CLI: 
 
 1. Add a one-time task
-task_manager.py add_task --name <task1> --type <one-time> --description <task1 description>
+python fiu_cli.py add_task --name <task1> --type one-time --description <task1 description>
 
 
 2. Add a repetitive task
-task_manager.py add_task --name <task2> --type <repetitive> --description <task2 description>
+python fiu_cli.py add_task --name <task2> --type repetitive --description <task2 description>
 
 3. Get task to do
-task_manager.py get_task 
-( this returns the task details)
+python fiu_cli.py get_current_task 
+( this returns the current task details that is chosen and to be completed)
 
 4. Finish a one-time task 
-task_manager.py complete_task <task_id>
+python fiu_cli.py complete_task --description <description>
 
 5. Finish a repetitive task
-task_manager.py complete_task <task_id> --description <task new description>
+python fiu_cli.py complete_task --description <task new description>
 
 (repetitive task may have its description changed time to time, example: 
 for competitive coding task at first we can mention 2 leetcode problems 
@@ -98,6 +98,9 @@ to solved in description, on completion we can update the description with 2 mor
 leetcode problems)
 
 6. Get list of completed tasks:
-task_manager.py get_completed_tasks
+python fiu_cli.py get_completed_tasks
+
+7. Terminate a repetitive task completely
+python fiu_cli.py complete_task --description <task new description> --terminate
 
 ---------------------------------------------------------------------------------------------------------------
