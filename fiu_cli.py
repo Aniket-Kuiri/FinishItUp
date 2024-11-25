@@ -7,7 +7,7 @@ def parse_args():
         description='FinishItUp App Command Line Interface')
     parser.add_argument("action",
                         choices=['add_task', 'get_current_task',
-                                 'complete_task', 'get_completed_tasks'],
+                                 'complete_task', 'get_completed_tasks', 'reset'],
                         help="Perform an action associated with FinishItUp App")
     parser.add_argument("--name", help="Task name")
     parser.add_argument("--type", choices=['one-time', 'repetitive'],

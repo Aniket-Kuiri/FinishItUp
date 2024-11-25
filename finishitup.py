@@ -31,7 +31,7 @@ class FinishItUp():
             self.task_store.persist_completed_tasks(completed_tasks)
         return status, err
 
-    def get_completed_task(self):
+    def get_completed_tasks(self):
         completed_tasks_list =  self.task_manager.get_completed_tasks()
         return completed_tasks_list
 
