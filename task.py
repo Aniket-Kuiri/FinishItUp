@@ -1,0 +1,1 @@
+# Class to deifne structure of a task
